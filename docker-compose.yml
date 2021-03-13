@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+    apache:
+        image: 'bitnami/apache:2.4'
+        container_name: apache_docker_sample
+        working_dir: /application
+        ports:
+            - "80:8080"
+            - "443:8443"
+        volumes:
+            - ./web_app/public_html:/app
+            - ./apache_data:/vhosts
+        depends_on:
+            - mariadb
+            - php-fpm
+      
+    #PHP
+    php-fpm:
+        build: ./php-fpm
+        container_name: php-fpm_docker_sample
+        working_dir: /application
+        volumes:
+            - ./web_app/public_html:/app
+            - ./php-fpm/php-ini-overrides.ini:/etc/php.d/php-ini-overrides.ini
+     
+    #MARIADB
+    mariadb:
+        image: mariadb:10.3
+        container_name: mariadb_docker_sample
+        working_dir: /application
+        hostname: 127.0.0.1
+        ports:
+            - "3307:3307"
+        volumes:
+            - .:/application
+            - ./mysql-data:/var/lib/mysql
+            - ./mariadb/my-overrider.cnf:/etc/mysql/my.cnf
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DB_PASS}
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_USER=${DB_USER}
+            - MYSQL_PASSWORD=${DB_PASS}
+        env_file:
+            - .env
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - "8025:8025"
+            - "1025:1025"
