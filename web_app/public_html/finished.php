@@ -1,11 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/styles.css">
+  <title>Document</title>
+</head>
+<body>
+
+
 <h2>投稿が完了しました。</h2>
 
-<input type="button" value="投稿一覧へ戻る" action="index.php">
+<button><a href="./index.php">投稿一覧へ戻る</a></button>
 
-
-CREATE TABLE todos(
-  id INT not null AUTO_INCREMENT,
-  name VARCHAR(255),
-  text TEXT,
-  PRIMARY KEY (id)
-);
+</body>
+</html>
