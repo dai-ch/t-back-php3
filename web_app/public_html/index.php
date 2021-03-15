@@ -1,17 +1,20 @@
 <?php
-require_once './common/DbManager.php';
+//絶対パスで指定する
+require_once(__DIR__.'/common/DbManager.php');
 
 //特殊な文字を記号のまま出力する ENT_QUOTESは''や""も変換対象にする
-function h($str){
-  return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+function h($str)
+{
+    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
-function getposts($pdo){
-  //SQL文を作成、格納
-  $stmt = $pdo->query("SELECT * FROM posts ORDER BY id ASC");
-  //$stmtにSQL文を指定しfetchAllで実行
-  $posts = $stmt->fetchAll();
-  return $posts;
+function getposts($pdo)
+{
+    //SQL文を作成、格納
+    $stmt = $pdo->query("SELECT * FROM posts ORDER BY id ASC");
+    //$stmtにSQL文を指定しfetchAllで実行
+    $posts = $stmt->fetchAll();
+    return $posts;
 }
 //todoListデータベースの接続情報を取し$postsへ格納
 $posts = getposts($pdo);
@@ -38,11 +41,16 @@ $posts = getposts($pdo);
 
     <h2>投稿内容一覧</h2>
     <ul>
-      <?php foreach($posts as $post): ?>
+
+      <?php foreach ($posts as $index => $post): ?>
       <li>
-        <p><?php echo 'No:'.h($post->id) ?></p>
-        <p><?php echo '名前:'.h($post->name) ?></p>
-        <p> <?php echo '投稿内容:'.h($post->text) ?></p>
+        <form action='./delete.php' method="post">
+          <p><?php echo 'No:'.h($index + 1) ?></p>
+          <p><?php echo '名前:'.h($post->name) ?></p>
+          <p> <?php echo '投稿内容:'.h($post->text) ?></p><br>
+          <input type="hidden" name="id" value="<?= h($post->id)?>">
+          <input type="submit" value="削除" name="delete">
+        </form>
       </li>
       <?php endforeach ?>
     </ul>
