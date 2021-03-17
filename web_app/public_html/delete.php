@@ -5,7 +5,7 @@ require_once(__DIR__.'/common/DbManager.php');
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     deletePost($pdo);
     //実行後にページリダイレクト
-    header('Location: http://'.$_SERVER['HTTP_HOST'].    dirname($_SERVER['PHP_SELF']).'./index.php');
+    // header('Location: http://'.$_SERVER['HTTP_HOST'].    dirname($_SERVER['PHP_SELF']).'./index.php');
 }
 
 function deletePost($pdo)
@@ -26,3 +26,22 @@ function deletePost($pdo)
     $stmt->execute();
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Document</title>
+  </head>
+  <body>
+
+
+    <h2>投稿が完了しました。</h2>
+
+    <button><a href="./index.php">投稿一覧へ戻る</a></button>
+
+  </body>
+</html>
