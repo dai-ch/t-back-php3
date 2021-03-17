@@ -1,9 +1,12 @@
 <?php
-require_once './common/DbManager.php';
+require_once(__DIR__.'/common/DbManager.php');
 
 //POST送信を受け取ったら処理を実行
 if($_SERVER["REQUEST_METHOD"] === "POST"){
   addPost($pdo);
+
+  //実行後にページリダイレクト
+  header('Location: http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'./index.php');
 }
 
 function addPost($pdo){
@@ -23,26 +26,25 @@ function addPost($pdo){
   $stmt->bindValue('text',$text, PDO::PARAM_STR);
   //実行
   $stmt->execute();
-  //実行後にページリダイレクト
-  header('Location: http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'./index.php');
+
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="css/styles.css">
-  <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Document</title>
+  </head>
+  <body>
 
 
-<h2>投稿が完了しました。</h2>
+    <h2>投稿が完了しました。</h2>
 
-<button><a href="./index.php">投稿一覧へ戻る</a></button>
+    <button><a href="./index.php">投稿一覧へ戻る</a></button>
 
-</body>
+  </body>
 </html>
