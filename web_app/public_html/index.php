@@ -41,13 +41,17 @@ $posts = getposts($pdo);
 
     <h2>投稿内容一覧</h2>
     <ul>
-
       <?php foreach ($posts as $index => $post): ?>
       <li>
+
+        <p><?php echo 'No:'.h($index + 1) ?></p>
+        <p><?php echo '名前:'.h($post->name) ?></p>
+        <p> <?php echo '投稿内容:'.h($post->text) ?></p><br>
+        <form action='./edit.php' method="post">
+          <input type="hidden" name="id" value="<?= h($post->id)?>">
+          <input type="submit" value="編集" name="edit">
+        </form>
         <form action='./delete.php' method="post">
-          <p><?php echo 'No:'.h($index + 1) ?></p>
-          <p><?php echo '名前:'.h($post->name) ?></p>
-          <p> <?php echo '投稿内容:'.h($post->text) ?></p><br>
           <input type="hidden" name="id" value="<?= h($post->id)?>">
           <input type="submit" value="削除" name="delete">
         </form>

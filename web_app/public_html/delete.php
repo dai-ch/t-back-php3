@@ -38,10 +38,8 @@ function deletePost($pdo)
   </head>
   <body>
 
-
     <h2>投稿が完了しました。</h2>
-
-    <button><a href="./index.php">投稿一覧へ戻る</a></button>
+    <button onclick="location.href='./index.php'">投稿一覧へ戻る</button>
 
   </body>
 </html>
